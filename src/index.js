@@ -4,6 +4,10 @@ import SlimSelect from 'slim-select'
 import Notiflix from 'notiflix';
 import { fetchCatByBreed } from './js/cat-api.js';
 
+new SlimSelect({
+  select: '#selectElement'
+});
+
 // Отримайте посилання на HTML-елементи
 const breedSelect = document.querySelector(".breed-select");
 const loader = document.querySelector(".loader");
