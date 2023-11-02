@@ -2,16 +2,41 @@
 import axios from "axios";
 import SlimSelect from 'slim-select'
 import Notiflix from 'notiflix';
-
-new SlimSelect({
-  select: '#selectElement'
-});
+import { fetchCatByBreed } from './cat-api.js';
 
 // Отримайте посилання на HTML-елементи
 const breedSelect = document.querySelector(".breed-select");
 const loader = document.querySelector(".loader");
 const error = document.querySelector(".error");
 const catInfo = document.querySelector(".cat-info");
+
+// Приховати блок з помилкою при завантаженні сторінки
+error.style.display = "none";
+
+//обробник подій для вибору породи
+breedSelect.addEventListener("change", () => {
+  const selectedBreedId = breedSelect.value;
+  
+  if (selectedBreedId) {
+    loader.style.display = "block";
+    fetchCatByBreed(selectedBreedId)
+      .then((cat) => {
+        displayCatInfo(cat);
+      })
+      .catch((err) => {
+        handleError();
+      })
+      .finally(() => {
+        loader.style.display = "none";
+      });
+  }
+});
+
+new SlimSelect({
+  select: '#selectElement'
+});
+
+
 
 axios.defaults.headers.common["x-api-key"] = "live_jCOpu4zU55giJc6i7DERf2RBmCfqkdcwpGNjBKcQvgtrEt9UVDlsxnOMGSYmJRKq";
 
@@ -24,24 +49,17 @@ function populateBreeds(breeds) {
 
 // Функція для відображення інформації про кота
 function displayCatInfo(cat) {
-  const catImage = document.createElement("img");
-  catImage.src = cat.url;
-  catImage.alt = "Cat";
+  const catInfoTemplate = `
+    <img src="${cat.url}" alt="Cat">
+    <p>${cat.breeds[0].name}</p>
+    <p>${cat.breeds[0].description}</p>
+  `;
 
-  const catName = document.createElement("p");
-  catName.textContent = cat.breeds[0].name;
-
-  const catDescription = document.createElement("p");
-  catDescription.textContent = cat.breeds[0].description;
-
-  catInfo.innerHTML = "";
-  catInfo.appendChild(catImage);
-  catInfo.appendChild(catName);
-  catInfo.appendChild(catDescription);
-
+  catInfo.innerHTML = catInfoTemplate;
   catInfo.style.display = "block";
   error.style.display = "none"; // Сховати текст про помилку, якщо інформація отримана успішно
 }
+
 
 // Функція для відправки запиту на отримання списку порід
 function fetchBreeds() {
@@ -58,7 +76,36 @@ function fetchBreeds() {
       loader.style.display = "none";
     });
 }
+// Функція для очищення блоків catInfo та error
+function clearCatInfo() {
+  catInfo.innerHTML = "";
+  error.style.display = "none";
+}
 
+// Обробник подій для вибору породи
+breedSelect.addEventListener("change", () => {
+  const selectedBreedId = breedSelect.value;
+
+  if (selectedBreedId) {
+    loader.style.display = "block";
+    clearCatInfo(); // Очистити розмітку перед новим запитом
+    fetchCatByBreed(selectedBreedId)
+      .then((cat) => {
+        // Перевірити, чи є коректні дані про кота перед їх відображенням
+        if (cat && cat.url && cat.breeds[0]) {
+          displayCatInfo(cat);
+        } else {
+          handleNoData(); // Показати повідомлення про відсутність даних
+        }
+      })
+      .catch((err) => {
+        handleError(err); // Передати помилку в обробник помилок
+      })
+      .finally(() => {
+        loader.style.display = "none";
+      });
+  }
+});
 // Функція для відправки запиту на отримання інформації про кота
 function fetchCatByBreed(breedId) {
   loader.style.display = "block";
@@ -91,7 +138,6 @@ axios.interceptors.response.use(
 // Функція для обробки помилок
 function doSomethingAsync() {
   return new Promise((resolve, reject) => {
-    // Ваша логіка тут, де ви перевіряєте наявність помилки
     if (hasError) {
       reject(new Error("Помилка!"));
     } else {
@@ -113,7 +159,6 @@ function handleNoData() {
   error.style.color = "red";
 }
 
-// Додайте обробник подій для вибору породи
 breedSelect.addEventListener("change", () => {
   const selectedBreedId = breedSelect.value;
   if (selectedBreedId) {
