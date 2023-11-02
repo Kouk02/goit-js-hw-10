@@ -4,9 +4,6 @@ import SlimSelect from 'slim-select'
 import Notiflix from 'notiflix';
 import { fetchCatByBreed } from './js/cat-api.js';
 
-new SlimSelect({
-  select: '#selectElement'
-});
 
 // Отримайте посилання на HTML-елементи
 const breedSelect = document.querySelector(".breed-select");
@@ -139,16 +136,7 @@ axios.interceptors.response.use(
   }
 );
 
-// Функція для обробки помилок
-function doSomethingAsync() {
-  return new Promise((resolve, reject) => {
-    if (hasError) {
-      reject(new Error("Помилка!"));
-    } else {
-      resolve("Успішно");
-    }
-  });
-}
+
 
 function handleError() {
   error.textContent = "Oops! Something went wrong. Please try again.";
