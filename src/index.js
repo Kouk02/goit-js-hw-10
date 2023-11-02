@@ -2,7 +2,7 @@
 import axios from "axios";
 import SlimSelect from 'slim-select'
 import Notiflix from 'notiflix';
-import { fetchCatByBreed } from './cat-api.js';
+import { fetchCatByBreed } from './js/cat-api.js';
 
 // Отримайте посилання на HTML-елементи
 const breedSelect = document.querySelector(".breed-select");
