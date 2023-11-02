@@ -126,7 +126,14 @@ function fetchCatByBreed(breedId) {
     });
 }
 
-
+// Глобальний обробник помилок Axios
+axios.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    handleError();
+    return Promise.reject(error);
+  }
+);
 
 
 
