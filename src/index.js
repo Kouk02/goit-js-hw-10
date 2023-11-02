@@ -1,7 +1,7 @@
 // Import необхідних функцій або бібліотек, якщо необхідно
 import SlimSelect from 'slim-select'
 import axios from "axios";
-import { fetchCatByBreed } from './js/cat-api.js';
+import { fetchCatByBreed } from './js/cat-api';
 
 new SlimSelect({
   select: '#selectElement'
