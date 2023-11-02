@@ -1,7 +1,6 @@
 // Import необхідних функцій або бібліотек, якщо необхідно
 import axios from "axios";
 import SlimSelect from 'slim-select'
-import Notiflix from 'notiflix';
 import { fetchCatByBreed } from './js/cat-api.js';
 
 
