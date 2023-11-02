@@ -1,7 +1,11 @@
 // Import необхідних функцій або бібліотек, якщо необхідно
 import SlimSelect from 'slim-select'
+import axios from "axios";
 import { fetchCatByBreed } from './js/cat-api.js';
 
+new SlimSelect({
+  select: '#selectElement'
+});
 
 // Отримайте посилання на HTML-елементи
 const breedSelect = document.querySelector(".breed-select");
@@ -31,9 +35,6 @@ breedSelect.addEventListener("change", () => {
   }
 });
 
-new SlimSelect({
-  select: '#selectElement'
-});
 
 
 

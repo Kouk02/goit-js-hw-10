@@ -1,5 +1,4 @@
 import axios from "axios";
-
 axios.defaults.headers.common["x-api-key"] = "live_jCOpu4zU55giJc6i7DERf2RBmCfqkdcwpGNjBKcQvgtrEt9UVDlsxnOMGSYmJRKq";
 
 // Функція для відправки запиту на отримання інформації про кота за ідентифікатором породи
