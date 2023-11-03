@@ -10,9 +10,15 @@ new SlimSelect({
 const yourArrayOfBreeds = ["Breed 1", "Breed 2", "Breed 3"];
 
 function populateBreeds(breeds) {
-  // Змінено breedSelect.innerHTML на breedSelect.options
-  breedSelect.options = breeds.map((breed) => {
-    return new Option(breed, breed);
+  // Очищення вмісту селекту
+  breedSelect.innerHTML = "";
+
+  // Додавання нових опцій
+  breeds.forEach((breed) => {
+    const option = document.createElement("option");
+    option.value = breed;
+    option.text = breed;
+    breedSelect.appendChild(option);
   });
 }
 
