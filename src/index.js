@@ -1,23 +1,8 @@
 import { fetchCatByBreed } from './js/cat-api';
 
-
-// Перенесення оголошення масиву перед викликом populateBreeds
-const yourArrayOfBreeds = ["Breed 1", "Breed 2", "Breed 3"];
-
-function populateBreeds(breeds) {
-  // Очищення вмісту селекту
-  breedSelect.innerHTML = "";
-
-  // Додавання нових опцій
-  breeds.forEach((breed) => {
-    const option = document.createElement("option");
-    option.value = breed;
-    option.text = breed;
-    breedSelect.appendChild(option);
-  });
-}
-
 document.addEventListener('DOMContentLoaded', () => {
+  const breedSelect = document.querySelector(".breed-select"); // Оголошення breedSelect в області видимості
+
   const loader = document.querySelector(".loader");
   const error = document.querySelector(".error");
   const catInfo = document.querySelector(".cat-info");
@@ -79,7 +64,4 @@ document.addEventListener('DOMContentLoaded', () => {
       updateCatInfo(selectedBreedId);
     }
   });
-
-  // Виклик функції для заповнення селекту
-  populateBreeds(yourArrayOfBreeds);
 });
