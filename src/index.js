@@ -15,6 +15,20 @@ const catInfo = document.querySelector(".cat-info");
 // Приховати блок з помилкою при завантаженні сторінки
 error.style.display = "none";
 
+
+// Функція для відображення інформації про кота
+function displayCatInfo(cat) {
+  const catInfoTemplate = `
+    <img src="${cat.url}" alt="Cat">
+    <p>${cat.breeds[0].name}</p>
+    <p>${cat.breeds[0].description}</p>
+  `;
+
+  catInfo.innerHTML = catInfoTemplate;
+  catInfo.style.display = "block";
+  error.style.display = "none"; // Сховати текст про помилку, якщо інформація отримана успішно
+}
+
 //обробник подій для вибору породи
 breedSelect.addEventListener("change", () => {
   const selectedBreedId = breedSelect.value;
@@ -40,6 +54,7 @@ function populateBreeds(breeds) {
     return `<option value="${breed.id}">${breed.name}</option>`;
   }).join('');
 }
+
 
 // Функція для очищення блоків catInfo та error
 function clearCatInfo() {
@@ -77,6 +92,7 @@ function handleError() {
   error.style.display = "block";
   error.style.color = "red";
 }
+
 
 // Функція для обробки відсутності даних
 function handleNoData() {

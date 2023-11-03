@@ -19,18 +19,6 @@ export function fetchBreeds() {
     });
 }
 
-// Функція для відображення інформації про кота
-function displayCatInfo(cat) {
-  const catInfoTemplate = `
-    <img src="${cat.url}" alt="Cat">
-    <p>${cat.breeds[0].name}</p>
-    <p>${cat.breeds[0].description}</p>
-  `;
-
-  catInfo.innerHTML = catInfoTemplate;
-  catInfo.style.display = "block";
-  error.style.display = "none"; // Сховати текст про помилку, якщо інформація отримана успішно
-}
 
 // Функція для відправки запиту на отримання інформації про кота
 function fetchCatByBreed(breedId) {
@@ -41,7 +29,7 @@ function fetchCatByBreed(breedId) {
       if (cat) {
         displayCatInfo(cat);
       } else {
-        handleNoData(); // Викликати функцію для обробки відсутності даних
+        handleNoData(); 
       }
     })
     .catch((err) => {
@@ -60,3 +48,8 @@ axios.interceptors.response.use(
     return Promise.reject(error);
   }
 );
+
+
+
+
+
