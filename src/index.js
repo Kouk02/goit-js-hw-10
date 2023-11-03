@@ -1,6 +1,5 @@
 // Import необхідних функцій або бібліотек, якщо необхідно
 import SlimSelect from 'slim-select'
-import axios from "axios";
 import { fetchCatByBreed } from './js/cat-api';
 
 new SlimSelect({
@@ -35,11 +34,6 @@ breedSelect.addEventListener("change", () => {
   }
 });
 
-
-
-
-axios.defaults.headers.common["x-api-key"] = "live_jCOpu4zU55giJc6i7DERf2RBmCfqkdcwpGNjBKcQvgtrEt9UVDlsxnOMGSYmJRKq";
-
 // Функція для заповнення селекту порід
 function populateBreeds(breeds) {
   breedSelect.innerHTML = breeds.map((breed) => {
@@ -47,35 +41,6 @@ function populateBreeds(breeds) {
   }).join('');
 }
 
-// Функція для відображення інформації про кота
-function displayCatInfo(cat) {
-  const catInfoTemplate = `
-    <img src="${cat.url}" alt="Cat">
-    <p>${cat.breeds[0].name}</p>
-    <p>${cat.breeds[0].description}</p>
-  `;
-
-  catInfo.innerHTML = catInfoTemplate;
-  catInfo.style.display = "block";
-  error.style.display = "none"; // Сховати текст про помилку, якщо інформація отримана успішно
-}
-
-
-// Функція для відправки запиту на отримання списку порід
-function fetchBreeds() {
-  loader.style.display = "block";
-  return axios.get("https://api.thecatapi.com/v1/breeds")
-    .then((response) => {
-      const breeds = response.data;
-      populateBreeds(breeds);
-    })
-    .catch((err) => {
-      handleError();
-    })
-    .finally(() => {
-      loader.style.display = "none";
-    });
-}
 // Функція для очищення блоків catInfo та error
 function clearCatInfo() {
   catInfo.innerHTML = "";
@@ -106,36 +71,6 @@ breedSelect.addEventListener("change", () => {
       });
   }
 });
-// Функція для відправки запиту на отримання інформації про кота
-function fetchCatByBreed(breedId) {
-  loader.style.display = "block";
-  return axios.get(`https://api.thecatapi.com/v1/images/search?breed_ids=${breedId}`)
-    .then((response) => {
-      const cat = response.data[0];
-      if (cat) {
-        displayCatInfo(cat);
-      } else {
-        handleNoData(); // Викликати функцію для обробки відсутності даних
-      }
-    })
-    .catch((err) => {
-      handleError();
-    })
-    .finally(() => {
-      loader.style.display = "none";
-    });
-}
-
-// Глобальний обробник помилок Axios
-axios.interceptors.response.use(
-  (response) => response,
-  (error) => {
-    handleError();
-    return Promise.reject(error);
-  }
-);
-
-
 
 function handleError() {
   error.textContent = "Oops! Something went wrong. Please try again.";
