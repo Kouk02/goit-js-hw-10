@@ -8,6 +8,8 @@ const catInfo = document.querySelector(".cat-info");
 
 // Приховати блок з помилкою при завантаженні сторінки
 error.style.display = "none";
+document.addEventListener('DOMContentLoaded', () => {
+  loader.style.display = "none";
 
 // Функція для відображення інформації про кота
 function displayCatInfo(cat) {
@@ -80,4 +82,6 @@ fetchBreeds()
   })
   .catch((err) => {
     handleError(err);
+  });
+
   });
