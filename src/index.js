@@ -1,14 +1,22 @@
 import SlimSelect from 'slim-select';
 import { fetchCatByBreed } from './js/cat-api';
 
-const selectElement = document.querySelector('.breed-select');
+const breedSelect = document.querySelector(".breed-select");
 
 new SlimSelect({
   select: selectElement
 });
 
+
+function populateBreeds(breeds) {
+  breedSelect.innerHTML = breeds.map((breed) => {
+    return `<option value="${breed.id}">${breed.name}</option>`;
+  }).join('');
+}
+
+
 document.addEventListener('DOMContentLoaded', () => {
-  const breedSelect = document.querySelector("#selectElement");
+  const breedSelect = document.querySelector(".breed-select");
   const loader = document.querySelector(".loader");
   const error = document.querySelector(".error");
   const catInfo = document.querySelector(".cat-info");
@@ -71,6 +79,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-// Виклик функції для заповнення селекту
-populateBreeds(yourArrayOfBreeds);
+  // Виклик функції для заповнення селекту
+  populateBreeds(yourArrayOfBreeds);
 });
