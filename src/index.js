@@ -1,22 +1,22 @@
-import SlimSelect from 'slim-select';
 import { fetchCatByBreed } from './js/cat-api';
-
+import SlimSelect from 'slim-select';
 const breedSelect = document.querySelector(".breed-select");
 
 new SlimSelect({
   select: breedSelect
 });
 
+// Перенесення оголошення масиву перед викликом populateBreeds
+const yourArrayOfBreeds = ["Breed 1", "Breed 2", "Breed 3"];
 
 function populateBreeds(breeds) {
-  breedSelect.innerHTML = breeds.map((breed) => {
-    return `<option value="${breed.id}">${breed.name}</option>`;
-  }).join('');
+  // Змінено breedSelect.innerHTML на breedSelect.options
+  breedSelect.options = breeds.map((breed) => {
+    return new Option(breed, breed);
+  });
 }
 
-
 document.addEventListener('DOMContentLoaded', () => {
-  const breedSelect = document.querySelector(".breed-select");
   const loader = document.querySelector(".loader");
   const error = document.querySelector(".error");
   const catInfo = document.querySelector(".cat-info");
@@ -32,7 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     catInfo.innerHTML = catInfoTemplate;
     catInfo.style.display = "block";
-    error.style.display = "none";
+    error.style.display = "none"; // Змінено error.style.display
   }
 
   function handleError() {
