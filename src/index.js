@@ -1,16 +1,19 @@
 import { fetchCatByBreed, fetchBreeds } from './js/cat-api';
 
+
 // посилання на HTML-елементи
 const breedSelect = document.querySelector(".breed-select");
 const loader = document.querySelector(".loader");
 const error = document.querySelector(".error");
 const catInfo = document.querySelector(".cat-info");
 
+
 // Приховати блок з помилкою при завантаженні сторінки
 error.style.display = "none";
 document.addEventListener('DOMContentLoaded', () => {
   loader.style.display = "none";
 
+  
 // Функція для відображення інформації про кота
 function displayCatInfo(cat) {
   const catInfoTemplate = `
@@ -24,6 +27,7 @@ function displayCatInfo(cat) {
   error.style.display = "none";
 }
 
+  
 // Функція для заповнення селекту порід
 function populateBreeds(breeds) {
   breedSelect.innerHTML = breeds.map((breed) => {
@@ -83,5 +87,4 @@ fetchBreeds()
   .catch((err) => {
     handleError(err);
   });
-
   });
