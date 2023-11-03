@@ -2,7 +2,7 @@ import axios from "axios";
 axios.defaults.headers.common["x-api-key"] = "live_jCOpu4zU55giJc6i7DERf2RBmCfqkdcwpGNjBKcQvgtrEt9UVDlsxnOMGSYmJRKq";
 
 // Функція для відправки запиту на отримання інформації про кота за ідентифікатором породи
-export function fetchCatByBreed(breedId) {
+function fetchCatByBreed(breedId) {
   return axios.get(`https://api.thecatapi.com/v1/images/search?breed_ids=${breedId}`)
     .then((response) => {
       const cat = response.data[0];
@@ -19,9 +19,8 @@ export function fetchBreeds() {
     });
 }
 
-
 // Функція для відправки запиту на отримання інформації про кота
-function fetchCatByBreed(breedId) {
+export function fetchCatByBreed(breedId) {
   loader.style.display = "block";
   return axios.get(`https://api.thecatapi.com/v1/images/search?breed_ids=${breedId}`)
     .then((response) => {
@@ -49,7 +48,8 @@ axios.interceptors.response.use(
   }
 );
 
-
+// Викликати функцію fetchBreeds, щоб заповнити селект при завантаженні сторінки
+fetchBreeds();
 
 
 

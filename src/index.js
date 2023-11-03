@@ -108,5 +108,4 @@ breedSelect.addEventListener("change", () => {
   }
 });
 
-// Викликати функцію fetchBreeds, щоб заповнити селект при завантаженні сторінки
-fetchBreeds();
+
