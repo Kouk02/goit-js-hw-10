@@ -1,10 +1,5 @@
 import { fetchCatByBreed } from './js/cat-api';
-import SlimSelect from 'slim-select';
-const breedSelect = document.querySelector(".breed-select");
 
-new SlimSelect({
-  select: breedSelect
-});
 
 // Перенесення оголошення масиву перед викликом populateBreeds
 const yourArrayOfBreeds = ["Breed 1", "Breed 2", "Breed 3"];
