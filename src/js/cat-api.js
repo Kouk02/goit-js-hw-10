@@ -11,7 +11,7 @@ function fetchCatByBreed(breedId) {
 }
 
 // Функція для відправки запиту на отримання списку порід
-export function fetchBreeds() {
+function fetchBreeds() {
   return axios.get("https://api.thecatapi.com/v1/breeds")
     .then((response) => {
       const breeds = response.data;
@@ -20,7 +20,7 @@ export function fetchBreeds() {
 }
 
 // Функція для відправки запиту на отримання інформації про кота
-export function fetchCatByBreed(breedId) {
+export function fetchCatInfoByBreedId(breedId) {
   loader.style.display = "block";
   return axios.get(`https://api.thecatapi.com/v1/images/search?breed_ids=${breedId}`)
     .then((response) => {
